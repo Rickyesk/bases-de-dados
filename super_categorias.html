@@ -17,24 +17,18 @@
     <tr>
      <td>{{ record[0] }}</td>
      <td> 
-      <form action="delete_category" method="post">
-      <p><input type="hidden" name="nome_categoria" value="{{ record[0] }}"/></p>
-      <p><input type="submit" value="Eliminar"/></p>
+      <form action="super_categorias/list_subcategorias" method="post">
+      <p><input type="hidden" name="nome_sup_categoria" value="{{ record[0] }}"/></p>
+      <p><input type="submit" value="Listar Subcategorias"/></p>
      </form>
      </td>
     </tr>
     {% endfor %}
   </tbody>
  </table>
- <td> 
-  <form action="categorias/super_categorias" method="post">
-  <p><input type="submit" value="Mostrar Super Categorias"/></p>
- </form>
- </td>
  <tr>
   <button onclick="history.back()">Voltar</button>
  </tr>
- <td><a href="adicionar">Adicionar Categoria</a></td>
 
 {% else %}
     <p> Erro: não foi possível obter dados da base de dados!</p>

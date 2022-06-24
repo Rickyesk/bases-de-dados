@@ -1,38 +1,17 @@
-DROP TRIGGER num_unidades_trig ON evento_reposicao IF EXISTS
-DROP TRIGGER categoria_produto_prateleira_trig ON prateleira IF EXISTS
+DROP TRIGGER num_unidades_trig ON evento_reposicao;
+DROP TRIGGER categoria_produto_prateleira_trig ON evento_reposicao;
 
 
-/* (RI-1) Uma Categoria não pode estar contida em si própria */
-
-	CREATE OR REPLACE FUNCTION chk_conteudo_categoria_proc() 
-	RETURNS TRIGGER AS $$ BEGIN 
-	DECLARE N int;
-	DECLARE cat VARCHAR(100) := '';
-	DROP TEMPORARY TABLE IF EXISTS children;
-	CREATE TEMPORARY TABLE children AS (SELECT super_categoria FROM tem_outra);
-	DROP TEMPORARY TABLE IF EXISTS prev_children;
-	CREATE TEMPORARY TABLE prev_children AS (SELECT * FROM children);
-	SET N = (SELECT count(*) FROM children);
-	WHILE (N > 0) DO
-		DROP TEMPORARY TABLE IF EXISTS aux;
-		CREATE TEMPORARY TABLE aux AS (SELECT super_categoria FROM categoria INNER JOIN prev_children C ON C.)
-	RETURN NEW; 
-	END; 
-	$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER chk_conteudo_categoria
-BEFORE INSERT ON tem_outra
-FOR EACH ROW EXECUTE PROCEDURE che
- /* (RI-4) O número de unidades repostas num Evento de Reposição não pode exceder o número de unidades especificado no Planograma */
+/* (RI-4) O número de unidades repostas num Evento de Reposição não pode exceder o número de unidades especificado no Planograma */
 
 	CREATE OR REPLACE FUNCTION num_unidades_proc() 
 	RETURNS TRIGGER AS $$ 
-	DECLARE unid_reposicao INT := 0;
-	DECLARE unid_planograma INT := 0;
+	DECLARE unidades_reposicao INT := 0;
 	BEGIN 
-		SELECT (SELECT unidades INTO unid_reposicao FROM evento_reposicao), (SELECT unidades INTO unid_planogram FROM planograma);
-		IF unid_reposicao > unid_planograma THEN
-			RAISE EXCEPTION ‘O número de unidades repostas num Evento de Reposição excede o número de unidades especificado no Planograma’;
+		SELECT unidades INTO unidades_reposicao FROM (evento_reposicao r INNER JOIN planograma p ON r.nro = p.nro
+		AND r.num_serie = p.num_serie AND r.fabricante = p.fabricante);
+		IF unidades_reposicao > p.unidades THEN
+			RAISE EXCEPTION 'Unidades excedidas';
 		END IF;
 	RETURN NEW; 
 	END; 
@@ -43,20 +22,21 @@ FOR EACH ROW EXECUTE PROCEDURE che
 	FOR EACH ROW EXECUTE PROCEDURE num_unidades_proc();
 
 
-  /* (RI-5) Um Produto só pode ser reposto numa Prateleira que apresente (pelo menos) uma das Categorias desse produto */
+/* (RI-5) Um Produto só pode ser reposto numa Prateleira que apresente (pelo menos) uma das Categorias desse produto */
 
 	CREATE OR REPLACE FUNCTION categoria_produto_prateleira_proc() 
 	RETURNS TRIGGER AS $$ 
-	DECLARE prod VARCHAR(100) := '';
+	DECLARE prod CHAR(13) := '';
 	BEGIN 
-		SELECT ean INTO prod FROM produto WHERE (ean IN tem_categoria AND ean IN planograma);
+		SELECT ean INTO prod FROM produto WHERE (ean IN (SELECT ean FROM tem_categoria) AND ean IN (SELECT ean FROM planograma pl INNER JOIN prateleira p 
+		ON pl.nro = p.nro AND pl.num_serie = p.num_serie AND pl.fabricante = p.fabricante));
 		IF prod IS NULL THEN
-			RAISE EXCEPTION ‘O Produto não pode ser reposto porque não existe essa categoria na Prateleira’;
+			RAISE EXCEPTION 'Impossivel Repor';
 		END IF;
 	RETURN NEW; 
 	END; 
 	$$ LANGUAGE plpgsql;
 
 	CREATE CONSTRAINT TRIGGER categoria_produto_prateleira_trig AFTER INSERT OR
-	UPDATE ON prateleira
+	UPDATE ON evento_reposicao
 	FOR EACH ROW EXECUTE PROCEDURE categoria_produto_prateleira_proc();

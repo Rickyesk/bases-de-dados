@@ -6,9 +6,19 @@
 </head>
 <body>
     <h3>Adicionar Categoria</h3>
-    <form action="insert" method="post">
-     <p>Nova categoria: <input type="text" name="nome_categoria"/></p>
-     <p><input type="submit" value="Submit"/></p>
-    </form>
+    <tr> 
+        <form action="insert" method="post">
+        <tr>
+            <select name="tipo_cat">
+            <option value="categoria_simples" selected>Categoria Simples</option>
+            <option value="super_categoria">Super Categoria</option>
+            </select>
+        </tr>
+        <p>Nova categoria: <input type="text" name="nome_categoria"/></p>
+        <p><input type="submit" value="Submit"/></p>
+       </form>
+       <button onclick="history.back()">Voltar</button>
+    </tr>
 </body>
 </html>
+

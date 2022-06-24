@@ -9,6 +9,11 @@
             border: 1px solid black;
             padding: 4px;
         }
+        button {
+          color: white;
+          background-color: black;
+          padding: 4px;
+        }
     </style>
 </head>
 <body style="padding:20px">
@@ -26,7 +31,7 @@
      <td>{{ record[0] }}</td>
      <td>{{ record[1] }}</td>
      <td> 
-      <form action="/ivm/evento_reposicao" method="post">
+      <form action="IVMs/eventos_reposicao_ivm" method="post">
       <p><input type="hidden" name="num_serie" value="{{ record[0] }}"/></p>
       <p><input type="hidden" name="fabricante" value="{{ record[1] }}"/></p>
       <p><input type="submit" value="Eventos de Reposição"/></p>
@@ -36,6 +41,7 @@
     {% endfor %}
   </tbody>
  </table>
+ <button onclick="history.back()">Voltar</button>
 {% else %}
     <p> Erro: não foi possível obter dados da base de dados!</p>
 {% endif %}

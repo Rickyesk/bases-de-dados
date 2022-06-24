@@ -1,16 +1,30 @@
-DROP VIEW vendas;
+DROP VIEW vendas; 
 
-CREATE VIEW vendas(ean, cat, ano, trimestre, dia_mes, dia_semana, distrito, concelho, unidades)
+CREATE VIEW vendas(ean, cat, ano, trimestre, mes, dia_mes, dia_semana, distrito, concelho, unidades)
 	AS SELECT 
-		(SELECT ean FROM produto AS prod),
-		(SELECT cat FROM produto AS categ),
-		(SELECT distrito FROM ponto_de_retalho AS dist),
-		(SELECT concelho FROM ponto_de_retalho AS conc),
-		(SELECT unidades FROM evento_reposicao AS unid),
-		(SELECT EXTRACT(YEAR FROM TIMESTAMP (SELECT instante FROM evento_reposicao)) AS ano),
-		(SELECT EXTRACT(QUARTER FROM TIMESTAMP (SELECT instante FROM evento_reposicao)) AS trim),
-		(SELECT EXTRACT(DAY FROM TIMESTAMP (SELECT instante FROM evento_reposicao)) AS dia),
-		(SELECT EXTRACT(ISODOW FROM TIMESTAMP (SELECT instante FROM evento_reposicao)) AS dia_semana);
+		evento_reposicao.ean, 
+		produto.cat, 
+        	EXTRACT(YEAR FROM evento_reposicao.instante),
+        	EXTRACT(QUARTER FROM evento_reposicao.instante),
+        	EXTRACT(MONTH FROM evento_reposicao.instante),
+        	EXTRACT(DAY FROM evento_reposicao.instante),
+        	EXTRACT(ISODOW FROM evento_reposicao.instante),
+        	ponto_de_retalho.distrito,
+        	ponto_de_retalho.concelho,
+		evento_reposicao.units
+		FROM (produto INNER JOIN evento_reposicao ON produto.ean = evento_reposicao.ean 
+		INNER JOIN instalada_em ON evento_reposicao.num_serie = instalada_em.num_serie AND evento_reposicao.fabricante = 			instalada_em.fabricante
+		INNER JOIN ponto_de_retalho ON instalada_em.locl = ponto_de_retalho.nome);
+        
+SELECT * FROM vendas;
+
+
+
+
+		
+		
+
+
 
 
 		
