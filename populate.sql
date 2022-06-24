@@ -139,7 +139,6 @@ create table evento_reposicao(
 ----Preenchendo a nossa base de dados
 ---------------------------------------------------------------------------------------------------------
 --Popular Categoria
-insert into categoria values ('Croissant');
 insert into categoria values ('Pao');
 insert into categoria values ('Pizza');
 insert into categoria values ('Refrigerantes');
@@ -148,7 +147,6 @@ insert into categoria values ('Bebidas energeticas');
 insert into categoria values ('Sumo natural');
 insert into categoria values ('Iogurte');
 insert into categoria values ('Leite');
-insert into categoria values ('Gelatina');
 insert into categoria values ('Padaria');
 insert into categoria values ('Bebidas');
 insert into categoria values ('Quentes');
@@ -157,7 +155,6 @@ insert into categoria values ('Laticinios');
 
 
 --Popular categoria simples
-insert into categoria_simples values ('Croissant');
 insert into categoria_simples values ('Pao');
 insert into categoria_simples values ('Pizza');
 insert into categoria_simples values ('Refrigerantes');
@@ -166,8 +163,6 @@ insert into categoria_simples values ('Bebidas energeticas');
 insert into categoria_simples values ('Sumo natural');
 insert into categoria_simples values ('Iogurte');
 insert into categoria_simples values ('Leite');
-insert into categoria_simples values ('Gelatina');
-
 
 
 --Popular super categoria
@@ -181,11 +176,9 @@ insert into super_categoria values ('Laticinios');
 
 --tem_outra:
 insert into tem_outra values ('Quentes', 'Padaria');
-insert into tem_outra values ('Padaria', 'Croissant');
 insert into tem_outra values ('Padaria', 'Pao');
 insert into tem_outra values ('Padaria', 'Pizza');
 insert into tem_outra values ('Frios', 'Laticinios');
-insert into tem_outra values ('Frios', 'Gelatina');
 insert into tem_outra values ('Laticinios', 'Iogurte');
 insert into tem_outra values ('Laticinios', 'Leite');
 insert into tem_outra values ('Bebidas', 'Bebidas energeticas');
@@ -198,14 +191,12 @@ insert into tem_outra values ('Bebidas', 'Sumo natural');
 
 --Produtos:
 insert into produto values ('6159538343286', 'Pao' ,'Pao c/ chourico');
-insert into produto values ('9134602126170', 'Pao' ,'Pao rustico');
+insert into produto values ('8756961320587', 'Pao' ,'Pao rustico');
 insert into produto values ('4536390997950', 'Pao' ,'Pao de lo');
 insert into produto values ('6921433830393', 'Pao' ,'Sandes c/ atum');
 insert into produto values ('5611703510556', 'Pao' ,'Sandes c/ frango');
 insert into produto values ('3545375898387', 'Pao' ,'Sandes mista');
-insert into produto values ('8756961320587', 'Croissant' ,'Croissant misto');
-insert into produto values ('2017340983057', 'Croissant' ,'Croissant c/ nutella');
-insert into produto values ('6919675729906', 'Croissant' ,'Croissant simples');
+insert into produto values ('2017340983057', 'Pao' ,'Pao rustico');
 insert into produto values ('2409687517723', 'Leite' ,'Leite c/ chocolate');
 insert into produto values ('9591365572101', 'Leite' ,'Leite de aveia');
 insert into produto values ('5795024633075', 'Leite' ,'Leite de soja');
@@ -239,18 +230,16 @@ insert into produto values ('4347236000783', 'Refrigerantes' ,'Iced-tea manga');
 insert into produto values ('4220272526259', 'Iogurte' ,'Iogurte Grego');
 insert into produto values ('2099623285807', 'Iogurte' ,'Iogurte c/ frutos vermelhos');
 insert into produto values ('2786149147964', 'Iogurte' ,'Iogurte c/ morangos');
+insert into produto values ('6919675729906', 'Iogurte' ,'Iogurte c/ pessego');
 
 
 -- tem_categoria
 insert into tem_categoria values ('6159538343286', 'Pao');
-insert into tem_categoria values ('9134602126170', 'Pao');
+insert into tem_categoria values ('8756961320587', 'Pao');
 insert into tem_categoria values ('4536390997950', 'Pao');
 insert into tem_categoria values ('6921433830393', 'Pao');
 insert into tem_categoria values ('5611703510556', 'Pao');
 insert into tem_categoria values ('3545375898387', 'Pao');
-insert into tem_categoria values ('8756961320587', 'Croissant');
-insert into tem_categoria values ('2017340983057', 'Croissant');
-insert into tem_categoria values ('6919675729906', 'Croissant');
 insert into tem_categoria values ('2409687517723', 'Leite');
 insert into tem_categoria values ('9591365572101', 'Leite');
 insert into tem_categoria values ('5795024633075', 'Leite');
@@ -321,7 +310,7 @@ insert into instalada_em values ('17286838', 'Tecnovending', 'Aldi-Lisboa');
 
 
 --prateleira
-insert into prateleira values ('1', '19276429', 'Prozis', 11.19, 'Croissant');
+insert into prateleira values ('1', '19276429', 'Prozis', 11.19, 'Pao');
 insert into prateleira values ('2', '19276429', 'Prozis', 7.83, 'Pizza');
 insert into prateleira values ('3', '19276429', 'Prozis', 6.42, 'Laticinios');
 insert into prateleira values ('4', '19276429', 'Prozis', 10.72, 'Sumo natural');
@@ -337,7 +326,7 @@ insert into prateleira values ('1', '91607771', 'Fanuc', 9.59, 'Pizza');
 insert into prateleira values ('2', '91607771', 'Fanuc', 14.49, 'Frios');
 insert into prateleira values ('3', '91607771', 'Fanuc', 9.49, 'Pizza');
 insert into prateleira values ('4', '91607771', 'Fanuc', 14.82, 'Pizza');
-insert into prateleira values ('5', '91607771', 'Fanuc', 5.69, 'Croissant');
+insert into prateleira values ('5', '91607771', 'Fanuc', 5.69, 'Agua');
 insert into prateleira values ('6', '91607771', 'Fanuc', 12.05, 'Padaria');
 insert into prateleira values ('1', '77094863', 'Fanuc', 7.72, 'Refrigerantes');
 insert into prateleira values ('2', '77094863', 'Fanuc', 5.27, 'Leite');
@@ -428,7 +417,7 @@ insert into retalhista values ('430-54-3054', 'Sonae');
 insert into retalhista values ('767-29-2858', 'Lidl');
 
 --responsavel_por
-insert into responsavel_por values ('17908245', 'Tecnovending', 'Croissant', '312-24-9955');
+insert into responsavel_por values ('17908245', 'Tecnovending', 'Pao', '312-24-9955');
 insert into responsavel_por values ('17286838', 'Tecnovending', 'Pizza', '312-24-9955');
 insert into responsavel_por values ('50071819', 'Sandstar', 'Refrigerantes', '312-24-9955');
 insert into responsavel_por values ('88371507', 'Sandstar', 'Agua', '312-24-9955');
@@ -439,13 +428,14 @@ insert into responsavel_por values ('19276429', 'Prozis', 'Leite', '312-24-9955'
 
 
 --Evento_reposicao
-insert into evento_reposicao values ('8756961320587', '5', '88371507', 'Sandstar', '2021-06-25', '2', '430-54-3054');
-insert into evento_reposicao values ('6505742074894', '1', '91607771', 'Fanuc', '2021-07-01', '1', '312-24-9955');
+insert into evento_reposicao values ('6921433830393', '6', '88371507', 'Sandstar', '2021-06-25', '2', '430-54-3054');
+insert into evento_reposicao values ('5862905836242', '2', '91607771', 'Fanuc', '2021-07-01', '1', '312-24-9955');
 insert into evento_reposicao values ('2017340983057', '2', '17908245', 'Tecnovending', '2022-04-06', '2', '312-24-9955');
 insert into evento_reposicao values ('6921433830393', '6', '88371507', 'Sandstar', '2021-04-21', '2', '767-29-2858');
 insert into evento_reposicao values ('1159151793743', '4', '50071819', 'Sandstar', '2022-01-01', '2', '767-29-2858');
 insert into evento_reposicao values ('2017340983057', '3', '19276429', 'Prozis', '2021-06-09', '2', '767-29-2858');
-insert into evento_reposicao values ('5862905836242', '2', '91607771', 'Fanuc', '2021-09-06', '2', '767-29-2858');
-insert into evento_reposicao values ('5862905836242', '2', '91607771', 'Fanuc', '2021-04-27', '1', '430-54-3054');
+insert into evento_reposicao values ('5862905836242', '2', '91607771', 'Fanuc', '2021-09-06', '2', '312-24-9955');
+insert into evento_reposicao values ('5862905836242', '2', '91607771', 'Fanuc', '2021-04-27', '2', '312-24-9955');
+insert into evento_reposicao values ('5862905836242', '2', '91607771', 'Fanuc', '2021-06-27', '1', '312-24-9955');
 insert into evento_reposicao values ('9123072697945', '2', '88371507', 'Sandstar', '2021-08-02', '2', '767-29-2858');
 insert into evento_reposicao values ('5053153129698', '1', '17908245', 'Tecnovending', '2021-08-16', '2', '312-24-9955');
